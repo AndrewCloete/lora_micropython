@@ -1,7 +1,6 @@
 from machine import SPI, Pin
 from sx127x import SX127x
-from tx import sender
-from rx import receiver
+import tx
 
 nss = Pin(8, Pin.OUT)  # Chip select
 reset = Pin(9, Pin.OUT)  # Reset pin
@@ -24,5 +23,5 @@ lora = SX127x(spi, pins, parameters={"frequency": 868000000})
 
 
 # Pick one
-sender(lora)
+tx.sender(lora)
 # receiver(lora)
