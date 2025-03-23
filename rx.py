@@ -16,7 +16,7 @@ CLIENT_ID = "pico-w-mqtt"
 TOPIC = b"pico/w/test"
 
 
-def receiver(lora):
+def receiver(lora, wd):
     # Initialize the Wi‑Fi interface in station mode
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
@@ -46,3 +46,4 @@ def receiver(lora):
                 print("Published a message to", TOPIC)
             except Exception as e:
                 print(e)
+        wd.feed()
