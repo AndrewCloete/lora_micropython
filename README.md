@@ -31,6 +31,24 @@ mqtt:
 ```
 
 
+# farmassistant networking setup
+```sh
+# You can ssh
+ssh farmassistant.local
+# since avahi is set up
+
+vim /etc/network/interfaces
+```
+.. add
+```
+auto eno1
+iface eno1 inet static
+   address 192.168.0.142
+   netmask 255.255.255.0
+   gateway 192.168.0.1
+   dns-nameservers 192.168.0.1 8.8.8.8 8.8.4.4
+```
+
 # Lora Pinout
 ```
 Pico	RP20401	            SX1276	RFM95W
