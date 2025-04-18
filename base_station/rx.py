@@ -13,7 +13,8 @@ MQTT_PORT = 1883
 MQTT_USER = env.mqtt_user
 MQTT_PSW = env.mqtt_psw
 CLIENT_ID = "pico-w-mqtt"
-TOPIC = b"pico/w/test"
+DATA_TOPIC = b"pico/w/test"
+HEARTBEAT_TOPIC = b"pico/w/test/hb"
 
 
 def receiver(lora, wd):
@@ -35,6 +36,8 @@ def receiver(lora, wd):
     client.connect()
     print("Connected to MQTT broker:", MQTT_BROKER)
 
+    last_sent = time.ticks_ms()
+    client.publish(DATA_TOPIC, "startup")
     while True:
         if lora.receivedPacket():
             try:
@@ -42,8 +45,18 @@ def receiver(lora, wd):
                 rssi = lora.packetRssi()
                 msg = "RX: {} | RSSI: {}".format(payload, rssi)
                 print(msg)
-                client.publish(TOPIC, msg)
-                print("Published a message to", TOPIC)
+                client.publish(DATA_TOPIC, msg)
+                print("Published a message to", DATA_TOPIC)
             except Exception as e:
                 print(e)
-        wd.feed()
+
+        current = time.ticks_ms()
+        if time.ticks_diff(current, last_sent) >= 3000:
+            try:
+                heartbeat_msg = f"HB: {current}"
+                client.publish(HEARTBEAT_TOPIC, heartbeat_msg)
+                print("Published heartbeat to", HEARTBEAT_TOPIC)
+                wd.feed()
+            except Exception as e:
+                print("Heartbeat error:", e)
+            last_sent = current

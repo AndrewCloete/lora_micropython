@@ -24,12 +24,11 @@ pins = {
 lora = SX127x(spi, pins, parameters={"frequency": 868000000})
 
 
-SLEEP_DURATION_MS = 60000 
+SLEEP_DURATION_MS = 10000
 tx.sender(lora)
-print(f"Going to deep sleep for {SLEEP_DURATION_MS/1000} seconds...")
+print(f"Going to deep sleep for {SLEEP_DURATION_MS / 1000} seconds...")
 time.sleep(1)
 machine.deepsleep(SLEEP_DURATION_MS)
 
-#wd = machine.WDT(timeout=8000)
-#rx.receiver(lora, wd)
-
+# wd = machine.WDT(timeout=8000)
+# rx.receiver(lora, wd)

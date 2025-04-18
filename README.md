@@ -7,6 +7,28 @@ file.
 line is connected
 
 
+```sh
+uv pip install mpremote
+# List the files on the remote
+mpremote fs ls
+# Copy all the basestation files over
+mpremote cp base_station/* :
+
+mpremote cp field_node/* :
+
+```
+
+Homeassistant configuration.yaml
+```yaml
+mqtt:
+  sensor:
+    - name: "lora_data"
+      unique_id: "lora_data"
+      state_topic: "pico/w/test"
+    - name: "lora_heartbeat"
+      unique_id: "lora_heartbeat"
+      state_topic: "pico/w/test/hb"
+```
 
 
 # Lora Pinout
