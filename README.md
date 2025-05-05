@@ -22,12 +22,53 @@ Homeassistant configuration.yaml
 ```yaml
 mqtt:
   sensor:
-    - name: "lora_data"
-      unique_id: "lora_data"
-      state_topic: "pico/w/test"
     - name: "lora_heartbeat"
       unique_id: "lora_heartbeat"
       state_topic: "pico/w/test/hb"
+      value_template: >
+        {% set rssi = value.split('HB: ')[1] | trim %}
+        {{ rssi | int }}
+      unit_of_measurement: "count"
+
+    - name: "LoRa RSSI"
+      unique_id: "lora_rssi"
+      state_topic: "pico/w/test"
+      value_template: >
+        {% set rssi = value.split('RSSI:')[1] | trim %}
+        {{ rssi | int }}
+      unit_of_measurement: "dBm"
+
+    - name: "LoRa et"
+      unique_id: "lora_et"
+      state_topic: "pico/w/test"
+      value_template: >
+        {% set json_str = value.split('RX:')[1].split('|')[0] | trim %}
+        {% set data = json_str | from_json %}
+        {{ data.et | float }}
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+
+    - name: "LoRa it"
+      unique_id: "lora_it"
+      state_topic: "pico/w/test"
+      value_template: >
+        {% set json_str = value.split('RX:')[1].split('|')[0] | trim %}
+        {% set data = json_str | from_json %}
+        {{ data.it | float }}
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+
+    - name: "LoRa cm"
+      unique_id: "lora_cm"
+      state_topic: "pico/w/test"
+      value_template: >
+        {% set json_str = value.split('RX:')[1].split('|')[0] | trim %}
+        {% set data = json_str | from_json %}
+        {{ data.cm | float }}
+      unit_of_measurement: "cm"
+
 ```
 
 
