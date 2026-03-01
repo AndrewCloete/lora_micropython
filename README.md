@@ -1,3 +1,16 @@
+Dam level monitors using LoRa, with MQTT/Wifi Gateway on Raspberry Pi Pico's
+
+# Photos
+Installation. Ultrasound distance monitor.
+![alt text](photos/installation1.JPG)
+![alt text](photos/installation2.JPG)
+
+Field_node (left), base station (right).
+![alt text](photos/nodes.jpg)
+
+Telemetry result for 6 months
+![alt text](photos/telemetry_6months.png)
+
 # IDE
 Thonny is not professional but it is damn easy. Flash the pi with the `u2f`
 file.
