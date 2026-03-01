@@ -8,10 +8,12 @@ line is connected
 
 
 ```sh
+
 uv pip install mpremote
 # List the files on the remote
 mpremote fs ls
 # Copy all the basestation files over
+mpremote cp sx127x.py :
 mpremote cp base_station/* :
 
 mpremote cp field_node/* :

@@ -2,7 +2,6 @@ import machine
 from machine import SPI, Pin
 from sx127x import SX127x
 import rx
-import time
 
 nss = Pin(8, Pin.OUT)  # Chip select
 reset = Pin(9, Pin.OUT)  # Reset pin
@@ -24,12 +23,11 @@ pins = {
 lora = SX127x(spi, pins, parameters={"frequency": 868000000})
 
 
-#SLEEP_DURATION = 10000  # 10 seconds
-#tx.sender(lora)
-#print("Going to deep sleep for 10 seconds...")
-#time.sleep(1)
-#machine.deepsleep(SLEEP_DURATION)
+# SLEEP_DURATION = 10000  # 10 seconds
+# tx.sender(lora)
+# print("Going to deep sleep for 10 seconds...")
+# time.sleep(1)
+# machine.deepsleep(SLEEP_DURATION)
 
 wd = machine.WDT(timeout=8000)
 rx.receiver(lora, wd)
-

@@ -21,6 +21,7 @@ def receiver(lora, wd):
     # Initialize the Wi‑Fi interface in station mode
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
+    time.sleep(1)
     wlan.connect(WIFI_SSID, WIFI_PASSWORD)
 
     # Wait until the connection succeeds
